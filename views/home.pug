@@ -1,0 +1,12 @@
+extends layout
+
+block content
+
+    if user
+        h2 Welcome to LeBook, #{user.firstname}!
+        a(href="/log-out") Log out
+    else
+        h2 Welcome to LeBook! Sign in or create a new account to get started. #{user}
+        a(href="/sign-in") Sign-in
+        a(href="/create-new-user") Create new user
+
