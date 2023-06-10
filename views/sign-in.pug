@@ -1,14 +1,14 @@
 extends layout
 
 block content
-    form(action="" method="POST")
-        label(for="username") Username (email associated with account)
-        input(name="username" placeholder="username@gmail.com" type="email") 
-         
-        label(for="password") Password 
-        input(name="password" type="password")
-        button Sign in
+    div(class="center")
+        form(action="" method="POST")
+            label(for="username") Username (email associated with account)
+            input(name="username" placeholder="username@gmail.com" type="email") 
+            
+            label(for="password") Password 
+            input(name="password" type="password")
+            button Sign in
 
-    a(href="/sign-in/facebook") Sign in with facebook 
-    a(href="/create-new-user") Create new user
+        a(href="/create-new-user") Create new user
     

@@ -6,8 +6,10 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
+const Post = require("../models/post");
+const Comment = require("../models/comment");
 
-// Uses PassportJS to log the user in
+// Uses PassportJS to log the user in locally
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -53,7 +55,10 @@ router.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 router.use(passport.initialize());
 router.use(passport.session());
 router.use(express.urlencoded({ extended: false }));
-
+router.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 /* GET sign in page. */
 router.get("/sign-in", function (req, res, next) {
   res.render("sign-in");
@@ -94,8 +99,46 @@ router.post(
   })
 );
 
-router.get("/", (req, res) => {
-  res.render("home", { user: req.user });
+router.get("/", async (req, res) => {
+  let possibleFriends;
+  let pendingRequests;
+
+  const user = res.locals.currentUser;
+
+  const posts = await Post.find({})
+    .populate("author")
+    .populate({
+      path: "comments",
+      populate: { path: "author" },
+    })
+    .populate({
+      path: "comments",
+      populate: { path: "likes" },
+    })
+    .populate({ path: "likes" });
+
+  if (user) {
+    possibleFriends = await User.find({
+      _id: { $ne: user._id },
+    });
+    if (user.sentRequests) {
+      possibleFriends = possibleFriends.filter(
+        (possibleFriend) => !user.sentRequests.includes(possibleFriend._id)
+      );
+    }
+    userWithRequests = await User.findById({ _id: user._id }).populate(
+      "friendRequests"
+    );
+    // console.log(userWithRequests);
+    pendingRequests = userWithRequests.friendRequests;
+    // console.log(pendingRequests);
+  }
+  res.render("home", {
+    user: user,
+    posts: posts,
+    possibleFriends: possibleFriends,
+    pendingRequests: pendingRequests,
+  });
 });
 
 router.get("/log-out", (req, res, next) => {
