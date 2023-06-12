@@ -1,0 +1,37 @@
+extends layout
+
+block content
+    
+    div(class='links')
+        h3 Links
+        if currentUser
+            a(href="/") Return Home
+            a(href='/users/index') User Index
+            a(href="/log-out") Log out
+        else 
+            a(href="/?guest=true") Return Home
+            a(href='/users/index') User Index
+            a(href='/sign-in') Sign in
+
+    div(class="center")
+        h2=user.fullname
+        h4(class='list-title') Friends:
+        if friends.length>0
+            ul(class='user-list')
+                each friend in friends
+                    li
+                        a(class='listuserlink' href=friend.url)=`${friend.fullname}`
+        if currentUser
+            h4(class='list-title') New friend requests:
+            if pendingRequests.length>0
+                    ul(class='user-list')
+                        each request in pendingRequests
+                            li(class='friend-request')
+                                a(class='listuserlink' href=request.url)=`${request.fullname}`
+                                form(action="/accept-request" method="POST")
+                                    input(type='text' value=user.id
+                                    name="to_user" hidden="true")
+                                    input(type='text' value=request.id name="from_user" hidden="true")
+                                    button Accept request
+    div(class='empty')
+    

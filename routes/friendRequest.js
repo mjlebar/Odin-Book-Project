@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
     User.findByIdAndUpdate(newToUser._id, newToUser, {}),
   ]);
 
-  res.redirect("/");
+  res.redirect("/users/index");
 });
 
 module.exports = router;

@@ -4,25 +4,38 @@ body {
   align-items: center;
   flex-direction: column;
   margin: 2px;
+  height: 100%;
 }
 
-form,
-h4 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+html {
+  height: 100vh;
 }
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+/* from https://stackoverflow.com/a/31278615 - makes the scrollbar visible always so users can tell what's scrollable */
 
 li {
   list-style: none;
-  padding-block: 5px;
-  border-bottom: 2px solid black;
   width: 100%;
+  padding: 5px;
+}
+
+.post {
+  padding-top: 10px;
+  width: 100%;
+  /* border-bottom: 2px solid black; */
   display: flex;
+  align-items: start;
   flex-direction: column;
-  gap: 3px;
-  align-items: center;
 }
 
 p {
@@ -37,20 +50,13 @@ ul {
   overflow: hidden;
   overflow-y: scroll;
   padding: 0px;
-  max-height: 300px;
-  border: 3px solid black;
-  border-radius: 10%;
   padding-block: 5px;
 }
 
 .main-content {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: center;
-  gap: 15px;
-  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 4fr 1fr;
   width: 100%;
-  align-items: start;
 }
 
 a {
@@ -61,23 +67,158 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  gap: 10px;
   text-align: center;
-}
-
-.sidebar-right {
-  padding-inline: 25px;
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 2;
+  padding-top: 15px;
 }
 
 .post-text {
   width: 300px;
   height: 100px;
+}
+
+h1 {
+  padding-bottom: 5px;
+  width: 100%;
+  border-bottom: 2px solid gray;
+  margin-bottom: 0px;
+}
+
+.welcome {
+  margin: 0px;
+  text-align: center;
+}
+
+.post-list {
+  border-block: 3px solid black;
+  max-height: 55vh;
+  width: 95%;
+  padding: 5px;
+  margin: 5px;
+  margin-top: 0px;
+  gap: 50px;
+}
+
+.comment-list {
+  max-height: 150px;
+  width: 87%;
+}
+
+.no-comment,
+.comment-list {
+  padding-left: 25px;
+  margin-left: 40px;
+  border-left: 1px solid black;
+}
+
+.no-comment {
+  margin-block: 0px;
+  padding-block: 5px;
+}
+
+.comments-starter {
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.add-comment {
+  border-top: 1px solid black;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin: 0px;
+  padding: 5px;
+}
+
+.comments-starter,
+.add-comment {
+  width: 95%;
+  flex-direction: row;
+  padding: 5px;
+}
+
+.content {
+  border-radius: 25px;
+  background-color: #54bde7;
+  padding: 20px;
+  width: 60%;
+  overflow-wrap: break-word;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-height: 125px;
+}
+
+.timeline {
+  margin-bottom: 5px;
+  padding-bottom: 0px;
+}
+
+.comment-header {
+  margin: 0px;
+}
+
+button {
+  margin: 5px;
+  border-radius: 5px;
+  border-style: solid;
+}
+
+.links {
+  font-size: medium;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 15px;
+  height: 100vh;
+  border-right: 2px solid gray;
+}
+
+.postuser {
+  font-size: large;
+  padding-block: 5px;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.comment-text {
+  height: 15px;
+}
+
+.user-list {
+  margin: 0px;
+}
+
+.list-title {
+  margin: 5px;
+}
+
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friend-request {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.listuserlink {
+  width: 125px;
 }

@@ -13,6 +13,7 @@ const indexRouter = require("./routes/index");
 const friendRequestRouter = require("./routes/friendRequest");
 const acceptRequestRouter = require("./routes/acceptRequest");
 const postsRouter = require("./routes/posts");
+userRouter = require("./routes/users");
 
 // Connect to mongoDB
 const mongoDB = `mongodb+srv://lebarmj:${process.env.DB_PASS}@cluster0.jijk6nh.mongodb.net/?retryWrites=true&w=majority`;
@@ -37,6 +38,7 @@ app.use("/", indexRouter);
 app.use("/friend-request", friendRequestRouter);
 app.use("/accept-request", acceptRequestRouter);
 app.use("/posts", postsRouter);
+app.use("/users", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

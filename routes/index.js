@@ -100,12 +100,9 @@ router.post(
 );
 
 router.get("/", async (req, res) => {
-  let possibleFriends;
-  let pendingRequests;
-
-  const user = res.locals.currentUser;
-
-  const posts = await Post.find({})
+  const currentUser = res.locals.currentUser;
+  const loggedIn = currentUser || req.query.guest;
+  let posts = await Post.find({})
     .populate("author")
     .populate({
       path: "comments",
@@ -117,27 +114,19 @@ router.get("/", async (req, res) => {
     })
     .populate({ path: "likes" });
 
-  if (user) {
-    possibleFriends = await User.find({
-      _id: { $ne: user._id },
-    });
-    if (user.sentRequests) {
-      possibleFriends = possibleFriends.filter(
-        (possibleFriend) => !user.sentRequests.includes(possibleFriend._id)
-      );
-    }
-    userWithRequests = await User.findById({ _id: user._id }).populate(
-      "friendRequests"
+  if (currentUser) {
+    posts = posts.filter(
+      (post) =>
+        post.author._id.equals(currentUser._id) ||
+        currentUser.friends.includes(post.author._id)
     );
-    // console.log(userWithRequests);
-    pendingRequests = userWithRequests.friendRequests;
-    // console.log(pendingRequests);
   }
+  // console.log(pendingRequests);
+
   res.render("home", {
-    user: user,
+    loggedIn: loggedIn,
+    currentUser: currentUser,
     posts: posts,
-    possibleFriends: possibleFriends,
-    pendingRequests: pendingRequests,
   });
 });
 

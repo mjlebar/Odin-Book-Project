@@ -1,11 +1,11 @@
 extends layout
 
 block content
+    div(class='empty')
     div(class="center")
-        form(action="" method="POST")
+        form(action="" method="POST" class="sign-in")
             label(for="username") Username (email associated with account)
-            input(name="username" placeholder="username@gmail.com" type="email") 
-            
+            input(name="username" placeholder="username@gmail.com" type="email")  
             label(for="password") Password 
             input(name="password" type="password")
             button Sign in

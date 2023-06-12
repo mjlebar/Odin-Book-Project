@@ -1,0 +1,28 @@
+
+extends layout
+
+block content
+    if currentUser
+    div(class='links')
+        h3 Links
+        if currentUser
+            a(href=locals.currentUser.url) My Profile
+            a(href="/") Return Home
+            a(href="/log-out") Log out
+        else 
+            a(href="/?guest=true") Return Home
+            a(href='/sign-in') Sign in
+    div(class="center")
+        h4(class='list-title') Add new friends:
+            ul(class='user-list')
+                each newUser in possibleFriends
+                    li(class='friend-request')
+                        a(class='listuserlink' href=newUser.url)=`${newUser.fullname}`
+                        if currentUser
+                            form(action="/friend-request" method="POST")
+                                input(type='text' value=currentUser._id
+                                name="from_user" hidden="true")
+                                input(type='text' value=newUser.id name="to_user" hidden="true")
+                                button Add friend
+    div(class='empty')
+    
