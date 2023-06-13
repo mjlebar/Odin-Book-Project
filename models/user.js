@@ -5,9 +5,15 @@ const userSchema = mongoose.Schema({
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   password: { type: String, required: true },
-  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  sentRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  friends: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  ],
+  friendRequests: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  ],
+  sentRequests: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  ],
 });
 
 userSchema.virtual("fullname").get(function () {

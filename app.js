@@ -4,18 +4,17 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 require("dotenv").config();
-// const bodyParser = require("body-parser");
 
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
+// these will route all http requests on this server
 const indexRouter = require("./routes/index");
 const friendRequestRouter = require("./routes/friendRequest");
 const acceptRequestRouter = require("./routes/acceptRequest");
 const postsRouter = require("./routes/posts");
-userRouter = require("./routes/users");
+const userRouter = require("./routes/users");
 
 // Connect to mongoDB
+const mongoose = require("mongoose");
+
 const mongoDB = `mongodb+srv://lebarmj:${process.env.DB_PASS}@cluster0.jijk6nh.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
@@ -27,10 +26,12 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+// setting up all the tools our app needs to use
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// we need this one for passportJS
 app.use(express.static(path.join(__dirname, "public")));
 // app.use(bodyParser.json());
 

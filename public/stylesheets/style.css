@@ -32,7 +32,6 @@ li {
 .post {
   padding-top: 10px;
   width: 100%;
-  /* border-bottom: 2px solid black; */
   display: flex;
   align-items: start;
   flex-direction: column;
@@ -70,11 +69,13 @@ a {
   text-align: center;
   padding-top: 15px;
 }
+/* center column on the page */
 
 .post-text {
   width: 300px;
   height: 100px;
 }
+/* the input text for a new post */
 
 h1 {
   padding-bottom: 5px;
@@ -82,21 +83,28 @@ h1 {
   border-bottom: 2px solid gray;
   margin-bottom: 0px;
 }
+/* LeBook up at top left of page */
 
 .welcome {
   margin: 0px;
   text-align: center;
 }
+/* the bit that says "welcome to LeBook" */
 
 .post-list {
   border-block: 3px solid black;
-  max-height: 55vh;
+  max-height: 45vh;
   width: 95%;
   padding: 5px;
   margin: 5px;
   margin-top: 0px;
   gap: 50px;
 }
+
+.post-list.guest {
+  max-height: 70vh;
+}
+/* we  change the maximum height if a guest is logged in - not having the option to post leaves more room on their page */
 
 .comment-list {
   max-height: 150px;
@@ -109,11 +117,13 @@ h1 {
   margin-left: 40px;
   border-left: 1px solid black;
 }
+/* we want the side border to look the same whether we are listing comments or saying "be the first to add a comment" */
 
 .no-comment {
   margin-block: 0px;
   padding-block: 5px;
 }
+/* styling for "be the first to add a comment"  */
 
 .comments-starter {
   border-bottom: 1px solid black;
@@ -121,6 +131,7 @@ h1 {
   align-items: center;
   gap: 25px;
 }
+/* this is directly above the comments, and displays the like button */
 
 .add-comment {
   border-top: 1px solid black;
@@ -130,6 +141,7 @@ h1 {
   margin: 0px;
   padding: 5px;
 }
+/* below the comments, where a user can add a new comment */
 
 .comments-starter,
 .add-comment {
@@ -137,6 +149,7 @@ h1 {
   flex-direction: row;
   padding: 5px;
 }
+/* the comments are sandwiched between these two, so we want their borders to line up perfectly so the comments look nice */
 
 .content {
   border-radius: 25px;
@@ -144,7 +157,9 @@ h1 {
   padding: 20px;
   width: 60%;
   overflow-wrap: break-word;
+  display: flex;
 }
+/* text content of either a post or a comment */
 
 .post-form {
   display: flex;
@@ -153,15 +168,18 @@ h1 {
   gap: 10px;
   max-height: 125px;
 }
+/* form to create posts */
 
 .timeline {
   margin-bottom: 5px;
   padding-bottom: 0px;
 }
+/* the bit that says 'timeline' above all the posts */
 
 .comment-header {
   margin: 0px;
 }
+/* bit that says "comments" above the comments... this keeps it in line with the like button */
 
 button {
   margin: 5px;
@@ -180,6 +198,7 @@ button {
   height: 100vh;
   border-right: 2px solid gray;
 }
+/* links off to the side of the page */
 
 .postuser {
   font-size: large;
@@ -192,10 +211,6 @@ button {
   align-items: flex-start;
 }
 
-.comment-text {
-  height: 15px;
-}
-
 .user-list {
   margin: 0px;
 }
@@ -203,12 +218,15 @@ button {
 .list-title {
   margin: 5px;
 }
+/* title to a list of users,  like friend or friend requests */
 
-.sign-in {
+.sign-in,
+.create-new-user {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+/* the two pages that are just form input */
 
 .friend-request {
   display: flex;
@@ -218,7 +236,20 @@ button {
   gap: 5px;
   width: 100%;
 }
+/* display for a friend request including a name and a button */
 
 .listuserlink {
   width: 125px;
 }
+/* controls the width of usernames in lists - this way they don't split to two lines super easily */
+
+.home {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+/* makes the main content span two columns */
+
+.comment-text {
+  height: 15px;
+}
+/* the text input for a new comment */

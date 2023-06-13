@@ -11,9 +11,10 @@ block content
                 else   
                     a(href='users/index') User Index    
                     a(href='/sign-in') Sign in    
-        div(class='center')
+        div(class='center home')
             h2(class="welcome") Welcome to LeBook, #{currentUser?currentUser.firstname:'Guest'}!
             if currentUser
+                h3 Vist the user index to send friend requests, or your profile  to accept them!
                 h3 Share a thought with your friends or see what they've already posted...
                 form(class='post-form' action="/posts" method="POST")
                     textarea(class="post-text"  rows="5" cols="30" name="post_text" placeholder="Write a new post..." )
@@ -21,12 +22,15 @@ block content
             else
                 h3 See what users have been up to already!
             h3(class='timeline') Timeline
-            ul(class="post-list")
+            //- we include a gueest class for this ul so that it can be taller for guests than users - user have the above text post
+            //- option which takes up more space
+            ul(class=`post-list ${currentUser?'':'guest'}`)
                 each post in posts 
                     li(class='post')
                         a(class='userlink postuser' href=post.author.url)=`${post.author.fullname}`
                         p(class='content')=post.content
                         p=`Liked by: ${post.likes.length<4 ?post.likes.map((like)=>like.fullname).join(', '): post.likes[0].fullname + ' and ' + post.likes.length-1 + ' more'}`
+                        //- this checks for the number of likes - if there are four or more, just says "firstname lastname and x others have liked", otherwise lists  the user  who have liked it
                         div(class='comments-starter')
                             if currentUser
                                 if !post.likes.some((like)=>like._id.equals(locals.currentUser._id))
@@ -45,6 +49,7 @@ block content
                                         a(class='userlink' href=comment.author.url)=`${comment.author.fullname}`
                                         p(class='content')=comment.content
                                         p=`Liked by: ${comment.likes.length<4 ?comment.likes.map((like)=>like.fullname).join(', '): comment.likes[0].fullname + ' and ' + comment.likes.length-1 + ' more'}`
+                                        //- this checks for the number of likes - if there are four or more, just says "firstname lastname and x others have liked", otherwise lists  the user  who have liked it
                                         if currentUser
                                             if (!comment.likes.some((like)=>like._id.equals(currentUser._id)))
                                                 form(action="/posts/comments/likes" method="POST")
@@ -54,6 +59,8 @@ block content
                                                 form(action="/posts/comments/unlikes" method="POST")
                                                     input(hidden="true" type="text" name="comment_id" value=comment._id)
                                                     button Unlike
+                                        //- if the use is logged in, display either like or unlike button, depending on whether the user has liked the post already
+
                         else if currentUser
                             p(class='no-comment') Be the first to add a comment!
                         if currentUser
@@ -62,9 +69,9 @@ block content
                             input(class="comment-text" type='text' name="comment_text")
                             input(hidden="true" type="text" name="post_id" value=post._id)
                             button Post
-        div(class='empty')
     else
         div(class='empty')
+        //- this empty div helps  keep things aligned - easier then redoing all the grid css
         div(class='center')
             h2 Welcome to LeBook! Sign in, log in as guest, or create a new account to get started. #{user}
             a(href="/sign-in") Sign in

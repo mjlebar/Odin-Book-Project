@@ -1,18 +1,25 @@
 extends layout
 
 block content
+    div(class='empty')
+    //- empty div to keep things aligned - easier than redoing grid css
     div(class='center')
         h2 Create a new account to get started.
-        form(action="" method="POST")
+        form(action="" method="POST" class='create-new-user')
             label(for="username") Username (email associated with account - it's ok if it's fake)
             input(name="username" placeholder="username@gmail.com" type="email")
             label(for="firstname") First name
-            input(name="firstname" placeholder="First name" type="text") 
+            input(name="firstname"  placeholder="First name" type="text") 
             label(for="lastname") Last name
             input(name="lastname" placeholder="Last name" type="text") 
             label(for="password") Password 
             input(name="password" type="password")
             button Sign up
+
+        a(href="/sign-in") Sign in
+        a(href="/?guest=true") Sign in as guest
+
+
 
 
     

@@ -1,7 +1,6 @@
 extends layout
 
 block content
-    
     div(class='links')
         h3 Links
         if currentUser
@@ -34,4 +33,5 @@ block content
                                     input(type='text' value=request.id name="from_user" hidden="true")
                                     button Accept request
     div(class='empty')
+    //- empty div to keep things aligned - easier than redoing grid css
     
