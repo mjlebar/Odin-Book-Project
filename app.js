@@ -37,8 +37,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // we need this one for passportJS
 app.use(express.static(path.join(__dirname, "public")));
-app.use("compression");
-app.use("helmet");
+app.use(compression());
+app.use(helmet());
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
