@@ -1,0 +1,1 @@
+A project to practice using Express with MongoDB and Pug to set up a facebook like program. Used PassportJS to allow login functionality. Loosely following the Odin Project at https://www.theodinproject.com/lessons/nodejs-odin-book.

@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 require("dotenv").config();
 const populate = require("./seeds");
+const compression = require("compression");
+const helmet = require("helmet");
 
 // these will route all http requests on this server
 const indexRouter = require("./routes/index");
@@ -16,7 +18,8 @@ const userRouter = require("./routes/users");
 // Connect to mongoDB
 const mongoose = require("mongoose");
 
-const mongoDB = `mongodb+srv://lebarmj:${process.env.DB_PASS}@cluster0.jijk6nh.mongodb.net/?retryWrites=true&w=majority`;
+const devDB = `mongodb+srv://lebarmj:${process.env.DB_PASS}@cluster0.jijk6nh.mongodb.net/?retryWrites=true&w=majority`;
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
@@ -34,7 +37,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // we need this one for passportJS
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(bodyParser.json());
+app.use("compression");
+app.use("helmet");
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
 
 app.use("/", indexRouter);
 app.use("/friend-request", friendRequestRouter);
