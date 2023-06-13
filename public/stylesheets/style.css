@@ -253,3 +253,9 @@ button {
   height: 15px;
 }
 /* the text input for a new comment */
+
+.error {
+  color: red;
+  font-weight: 700;
+}
+/* paragraph announcing a log in or create user error */

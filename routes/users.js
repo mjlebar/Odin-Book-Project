@@ -43,6 +43,8 @@ router.get("/:userid", async function (req, res, next) {
   // fill in the  friends and friend requests for the user
   const currentUser = res.locals.currentUser;
 
+  friends = populatedUser.friends;
+
   if (currentUser && currentUser._id.equals(req.params.userid)) {
     pendingRequests = populatedUser.friendRequests;
     // if the user whose  page we're looking at is the current user, then we will display their friend requests

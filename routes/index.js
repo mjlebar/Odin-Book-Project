@@ -22,7 +22,9 @@ passport.use(
 
       if (!user) {
         // if the user doesn't exist, login fails
-        return done(null, false, { message: "Incorrect username" });
+        return done(null, false, {
+          message: "No user registered under this name",
+        });
       } else {
         // otherwise, compare the passwoord
         bcrypt.compare(password, user.password, (err, res) => {
@@ -30,13 +32,15 @@ passport.use(
             // passwords match! log user in
             return done(null, user);
           } else {
-            console.log("this is the issue");
             // passwords do not match!
-            return done(null, false, { message: "Incorrect password" });
+            return done(null, false, {
+              message: "Incorrect password",
+            });
           }
         });
       }
     } catch (err) {
+      console.log(err);
       return done(err);
     }
   })
@@ -69,8 +73,11 @@ router.use(function (req, res, next) {
 
 /* GET sign in page. */
 router.get("/sign-in", function (req, res, next) {
-  res.render("sign-in");
+  res.render("sign-in", {
+    errors: req.session.messages,
+  });
 });
+// shows the sign in page, and any errors from passport js
 
 // GET create new user page
 router.get("/create-new-user", function (req, res, next) {
@@ -140,12 +147,13 @@ router.post("/create-new-user", [
   },
 ]);
 
-// POST method for sign-in - once a user has attempted loggedin, sends them to the home page (which will either be the sign-in page  again, if the login failed,  or the app homepage if they succeed)
+// POST method for sign-in - once a user has attempted loggedin, sends them  either to the sign-in page again, if the login failed, or the app homepage if they succeed. Failure message true makes sure errors are displayed
 router.post(
   "/sign-in",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/",
+    failureRedirect: "/sign-in",
+    failureMessage: true,
   })
 );
 

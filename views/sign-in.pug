@@ -5,12 +5,13 @@ block content
     div(class="center")
         form(action="" method="POST" class="sign-in")
             label(for="username") Username (email associated with account)
-            input(name="username" placeholder="username@gmail.com" type="email")  
+            input(name="username" placeholder="username@gmail.com" type="email" value=(username===undefined?'':username))  
             label(for="password") Password 
             input(name="password" type="password")
             button Sign in
-
-
+        if errors
+            p(class='error') Sign in failed, please address the following error and try again.
+            p !{errors[errors.length-1]}
         a(href="/?guest=true") Sign in as guest
         a(href="/create-new-user") Create new user
 

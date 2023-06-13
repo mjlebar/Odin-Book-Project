@@ -7,15 +7,19 @@ block content
         h2 Create a new account to get started.
         form(action="" method="POST" class='create-new-user')
             label(for="username") Username (email associated with account - it's ok if it's fake)
-            input(name="username" placeholder="username@gmail.com" type="email")
+            input(name="username" placeholder="username@gmail.com" type="email" value=(undefined===username? '':username))
             label(for="firstname") First name
-            input(name="firstname"  placeholder="First name" type="text") 
+            input(name="firstname"  placeholder="First name" type="text" value=(undefined===firstname? '':firstname)) 
             label(for="lastname") Last name
-            input(name="lastname" placeholder="Last name" type="text") 
+            input(name="lastname" placeholder="Last name" type="text" value=(undefined===lastname? '':lastname)) 
             label(for="password") Password 
-            input(name="password" type="password")
+            input(name="password" type="password" value=(undefined===password? '':password))
             button Sign up
-
+        if errors
+            p(class='error') Create new user failed, please address the following errors and try again.
+            ul
+                for error in errors
+                    li!= error.msg
         a(href="/sign-in") Sign in
         a(href="/?guest=true") Sign in as guest
 

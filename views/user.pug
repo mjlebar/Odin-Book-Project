@@ -20,7 +20,7 @@ block content
                 each friend in friends
                     li
                         a(class='listuserlink' href=friend.url)=`${friend.fullname}`
-        if currentUser
+        if (currentUser && currentUser._id.equals(user._id))
             h4(class='list-title') New friend requests:
             if pendingRequests.length>0
                     ul(class='user-list')
