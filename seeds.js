@@ -20,7 +20,7 @@ async function createRandomUsers(numUser) {
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       password: faker.internet.password(),
-      userName: faker.internet.email,
+      userName: faker.internet.email(),
       friends: [],
       friendRequests: [],
       sentRequests: [],
