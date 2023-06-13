@@ -17,7 +17,7 @@ passport.use(
     try {
       // find the user corresponding to the entered username
       const user = await User.findOne({
-        username: username,
+        userName: username,
       });
 
       if (!user) {
@@ -117,9 +117,9 @@ router.post("/create-new-user", [
     if (!errors.isEmpty()) {
       // if there are errors, return to the page with the user's inputted information plus errors
       res.render("create-new-user", {
-        username: req.body.username,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
+        userName: req.body.userName,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         password: req.body.password,
         errors: errors.array(),
       });
@@ -131,9 +131,9 @@ router.post("/create-new-user", [
         } else {
           try {
             const user = new User({
-              username: req.body.username,
-              firstname: req.body.firstname,
-              lastname: req.body.lastname,
+              userName: req.body.userName,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
               password: hashedPassword,
             });
             await user.save();
@@ -173,9 +173,10 @@ router.get("/", async (req, res) => {
       path: "comments",
       populate: { path: "likes" },
     })
-    .populate({ path: "likes" });
+    .populate({ path: "likes" })
+    .limit(35);
 
-  // makes a query for all posts, and populates their info so it can display
+  // makes a query for all posts, and populates their info so it can display... limits it to 35 posts to not overwhelm the server
 
   if (currentUser) {
     posts = posts.filter(
@@ -184,7 +185,7 @@ router.get("/", async (req, res) => {
         currentUser.friends.includes(post.author._id)
     );
   }
-  // if a user is logged in, we filter the posts to only show the ones from them or their friends;
+  // if a user is logged in, we filter the posts to only show the ones from them or their friends
 
   res.render("home", {
     loggedIn: loggedIn,

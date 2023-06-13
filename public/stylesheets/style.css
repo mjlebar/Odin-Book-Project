@@ -109,6 +109,7 @@ h1 {
 .comment-list {
   max-height: 150px;
   width: 87%;
+  gap: 30px;
 }
 
 .no-comment,

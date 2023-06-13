@@ -25,6 +25,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "nodemon": "^2.0.22"
   }
 }

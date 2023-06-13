@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-  username: { type: String, required: true },
-  firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
+  userName: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   password: { type: String, required: true },
   friends: [
     { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.virtual("fullname").get(function () {
-  return `${this.firstname} ${this.lastname}`;
+  return `${this.firstName} ${this.lastName}`;
 });
 
 userSchema.virtual("url").get(function () {

@@ -7,11 +7,11 @@ block content
         h2 Create a new account to get started.
         form(action="" method="POST" class='create-new-user')
             label(for="username") Username (email associated with account - it's ok if it's fake)
-            input(name="username" placeholder="username@gmail.com" type="email" value=(undefined===username? '':username))
+            input(name="username" placeholder="username@gmail.com" type="email" value=(undefined===userName? '':userName))
             label(for="firstname") First name
-            input(name="firstname"  placeholder="First name" type="text" value=(undefined===firstname? '':firstname)) 
+            input(name="firstname"  placeholder="First name" type="text" value=(undefined===firstName? '':firstName)) 
             label(for="lastname") Last name
-            input(name="lastname" placeholder="Last name" type="text" value=(undefined===lastname? '':lastname)) 
+            input(name="lastname" placeholder="Last name" type="text" value=(undefined===lastName? '':lastName)) 
             label(for="password") Password 
             input(name="password" type="password" value=(undefined===password? '':password))
             button Sign up

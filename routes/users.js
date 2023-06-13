@@ -23,8 +23,8 @@ router.get("/index", async function (req, res, next) {
     }
     // then we filter out all the people who are either already friends with the current user, or who have been sent a friend request by the current user
   } else {
-    possibleFriends = await User.find({});
-    // otherwise, just fill in everyone
+    possibleFriends = await User.find({}).limit(15);
+    // otherwise, just fill in everyone... then narrow down to the first 15 so the page isn't flooded
   }
   res.render("index", {
     possibleFriends: possibleFriends,

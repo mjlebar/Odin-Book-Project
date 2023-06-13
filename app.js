@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 require("dotenv").config();
+const populate = require("./seeds");
 
 // these will route all http requests on this server
 const indexRouter = require("./routes/index");
@@ -45,6 +46,9 @@ app.use("/users", userRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+populate();
+// run function to  populate page
 
 // error handler
 app.use(function (err, req, res, next) {

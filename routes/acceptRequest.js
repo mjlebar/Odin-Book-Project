@@ -27,9 +27,9 @@ router.post("/", async (req, res) => {
 
   // create and update users with new information
   const newFromUser = new User({
-    username: fromUser.username,
-    firstname: fromUser.firstname,
-    lastname: fromUser.lastname,
+    userName: fromUser.userName,
+    firstName: fromUser.firstName,
+    lastName: fromUser.lastName,
     password: fromUser.password,
     friends: fromUserFriends,
     friendRequests: fromUser.friendRequests,
@@ -37,9 +37,9 @@ router.post("/", async (req, res) => {
     _id: fromUser._id,
   });
   const newToUser = new User({
-    username: toUser.username,
-    firstname: toUser.firstname,
-    lastname: toUser.lastname,
+    userName: toUser.userName,
+    firstName: toUser.firstName,
+    lastName: toUser.lastName,
     password: toUser.password,
     friends: toUserFriends,
     friendRequests: toUserRequestsCopy,

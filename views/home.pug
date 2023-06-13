@@ -29,7 +29,7 @@ block content
                     li(class='post')
                         a(class='userlink postuser' href=post.author.url)=`${post.author.fullname}`
                         p(class='content')=post.content
-                        p=`Liked by: ${post.likes.length<4 ?post.likes.map((like)=>like.fullname).join(', '): post.likes[0].fullname + ' and ' + post.likes.length-1 + ' more'}`
+                        p=`Liked by: ${post.likes.length<4 ?post.likes.map((like)=>like.fullname).join(', '): post.likes[0].fullname.concat(' and ').concat(post.likes.length-1 ).concat(' more')}`
                         //- this checks for the number of likes - if there are four or more, just says "firstname lastname and x others have liked", otherwise lists  the user  who have liked it
                         div(class='comments-starter')
                             if currentUser
@@ -48,7 +48,7 @@ block content
                                     li(class='comment')
                                         a(class='userlink' href=comment.author.url)=`${comment.author.fullname}`
                                         p(class='content')=comment.content
-                                        p=`Liked by: ${comment.likes.length<4 ?comment.likes.map((like)=>like.fullname).join(', '): comment.likes[0].fullname + ' and ' + comment.likes.length-1 + ' more'}`
+                                        p=`Liked by: ${comment.likes.length<4 ?comment.likes.map((like)=>like.fullname).join(', '): comment.likes[0].fullname.concat(' and ').concat(comment.likes.length-1 ).concat(' more')}`
                                         //- this checks for the number of likes - if there are four or more, just says "firstname lastname and x others have liked", otherwise lists  the user  who have liked it
                                         if currentUser
                                             if (!comment.likes.some((like)=>like._id.equals(currentUser._id)))
@@ -63,12 +63,13 @@ block content
 
                         else if currentUser
                             p(class='no-comment') Be the first to add a comment!
-                        if currentUser
+                        
                         form(class='add-comment' action="/posts/comments" method="POST")
-                            label(for="comment_text") Add a comment
-                            input(class="comment-text" type='text' name="comment_text")
-                            input(hidden="true" type="text" name="post_id" value=post._id)
-                            button Post
+                            if currentUser
+                                label(for="comment_text") Add a comment
+                                input(class="comment-text" type='text' name="comment_text")
+                                input(hidden="true" type="text" name="post_id" value=post._id)
+                                button Post
     else
         div(class='empty')
         //- this empty div helps  keep things aligned - easier then redoing all the grid css
