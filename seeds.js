@@ -5,9 +5,10 @@ const { faker } = require("@faker-js/faker");
 
 async function populate() {
   // fills in the site by first creating random users, then making random friends, then making random posts, and finally adding random comments. Numbers here are arbitrary
-  const totalUsers = await User.countDocuments({});
   //   we need this to generate a random number for our user
   await createRandomUsers(15);
+  const totalUsers = await User.countDocuments({});
+
   await makeRandomFriends(30, totalUsers);
   await makeRandomPosts(20, totalUsers);
   await addRandomComments(40, totalUsers);

@@ -58,7 +58,7 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-populate();
+// populate();
 // run function to  populate page
 
 // error handler
