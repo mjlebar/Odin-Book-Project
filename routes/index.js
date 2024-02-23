@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // need these imports for user login
-const session = require("express-session");
+const session = require("cookie-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
