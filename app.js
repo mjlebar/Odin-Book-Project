@@ -18,7 +18,7 @@ const userRouter = require("./routes/users");
 // Connect to mongoDB
 const mongoose = require("mongoose");
 
-// const devDB = `mongodb+srv://lebarmj:${process.env.DB_PASS}@cluster0.jijk6nh.mongodb.net/?retryWrites=true&w=majority`;
+const devDB = `mongodb+srv://lebarmj:${process.env.DB_PASS}@cluster0.jijk6nh.mongodb.net/?retryWrites=true&w=majority`;
 const mongoDB = process.env.MONGODB_URI || devDB;
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
