@@ -19,12 +19,26 @@ const userRouter = require("./routes/users");
 const mongoose = require("mongoose");
 
 
-const devDB = "mongodb://admin:${process.env.DB_PASS}>@<hostname>/?ssl=true&replicaSet=atlas-relgai-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb://admin:${process.env.DB_PASS}>@<hostname>/?ssl=true&replicaSet=atlas-relgai-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0";
 
-const mongoDB = process.env.MONGODB_URI || devDB;
-mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "mongo connection error"));
+const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+async function run() {
+  try {
+    // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
+    await mongoose.connect(uri, clientOptions);
+    await mongoose.connection.db.admin().command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await mongoose.disconnect();
+  }
+}
+run().catch(console.dir);
+
+// const mongoDB = process.env.MONGODB_URI || devDB;
+// mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "mongo connection error"));
 
 const app = express();
 
